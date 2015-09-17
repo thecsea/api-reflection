@@ -1,0 +1,19 @@
+checks:
+    php:
+        code_rating: true
+        duplication: true
+filter:
+    excluded_paths:
+        - "tests/"
+build:
+    environment:
+        php: '5.5.0'
+
+    tests:
+        override:
+            -
+                command: 'phpunit'
+                coverage:
+                    file: 'coverage.xml'
+                    format: 'php-clover'
+
