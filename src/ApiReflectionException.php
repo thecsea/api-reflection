@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: claudio
- * Date: 17/09/15
- * Time: 14.44
+ * Date: 24/09/15
+ * Time: 0.04
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -19,25 +19,12 @@
 
 namespace it\thecsea\api_reflection;
 
+
 /**
- * Class JsonDecoder
+ * Class ApiReflectionException
  * @package it\thecsea\api_reflection
  * @author Claudio Cardinale <cardi@thecsea.it>
  * @copyright 2015 Claudio Cardinale
  * @version 1.0.0
  */
-class JsonDecoder extends GeneralDecoder
-{
-    /**
-     * Decode the data into a standard array that contains apiKey, class and method name and array of paramters
-     * @param mixed $data
-     * @return array
-     */
-    public function decodeData($data)
-    {
-        $decoded = json_decode($data, true);
-        if(!self::isValid($decoded))
-            throw new ApiReflectionException("Decode error (data)");
-        return $decoded;
-    }
-}
+class ApiReflectionException extends \exception{}
