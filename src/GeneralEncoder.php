@@ -68,13 +68,10 @@ class GeneralEncoder
             foreach($data as $key=>$value){
                 $tmp[] = self::encodeData($value, $key);
             }
-            $ret = self::encodeElement($tmp, $name, self::MATRIX);
+            return self::encodeElement($tmp, $name, self::MATRIX);
         }else{
-            $ret = self::encodeElement(self::TEXT, $name, $data);
+            return self::encodeElement(self::TEXT, $name, $data);
         }
-
-        //return
-        return $ret;
     }
 
     /**
