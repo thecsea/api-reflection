@@ -23,11 +23,14 @@ namespace it\thecsea\api_reflection;
  * Class GeneralEncoder
  * @package it\thecsea\api_reflection
  * @author Claudio Cardinale <cardi@thecsea.it>
- * @copyright 2015 ClaudioCardinale
+ * @copyright 2015 Claudio Cardinale
  * @version 1.0.0
  */
-abstract class GeneralEncoder
+class GeneralEncoder
 {
+    const MATRIX = "matrix";
+    const TEXT = "text";
+    const GENERAL_RETURN = "generalReturn";
 
     /**
      * Encode the return of each method into a string
@@ -47,5 +50,42 @@ abstract class GeneralEncoder
      * @return array
      */
     public function matrixEncode($methodReturn)
-    {}
+    {
+        return self::encodeData($methodReturn);
+    }
+
+    /**
+     * Encode a complex/simple data into an array with information for each element
+     * @param $data
+     * @param $name
+     * @return string
+     * @see encodeElement
+     */
+    final static protected function encodeData($data, $name = self::GENERAL_RETURN){
+        //encoding
+        if(is_array($data)){
+            $tmp = array();
+            foreach($data as $key=>$value){
+                $tmp[] = self::encodeData($value, $key);
+            }
+            $ret = self::encodeElement($tmp, $name, self::MATRIX);
+        }else{
+            $ret = self::encodeElement(self::TEXT, $name, $data);
+        }
+
+        //return
+        return $ret;
+    }
+
+    /**
+     * encode an element (can be a complex element such as an array) into a array with name and type information
+     * @param mixed $value
+     * @param string $name
+     * @param string $type
+     * @return array
+     */
+    final static protected function encodeElement($value, $name = "", $type = self::TEXT)
+    {
+        return array("type"=>$type, "name"=>$name, "value"=>$value);
+    }
 }

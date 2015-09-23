@@ -23,10 +23,18 @@ namespace it\thecsea\api_reflection;
  * Class JsonEncoder
  * @package it\thecsea\api_reflection
  * @author Claudio Cardinale <cardi@thecsea.it>
- * @copyright 2015 ClaudioCardinale
+ * @copyright 2015 Claudio Cardinale
  * @version 1.0.0
  */
 class JsonEncoder extends GeneralEncoder
 {
-
+    /**
+     * Encode the return of each method into a string
+     * @param mixed $methodReturn return of method called by reflection
+     * @return string
+     */
+    public function stringEncode($methodReturn)
+    {
+        return json_encode(self::matrixEncode($methodReturn));
+    }
 }
